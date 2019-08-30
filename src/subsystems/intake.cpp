@@ -25,10 +25,14 @@ namespace subsytems {
 
     // hold position
     void hold() {
-      if (m_left.get_brake_mode() != pros::E_MOTOR_BRAKE_HOLD) m_left.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-      if (m_right.get_brake_mode() != pros::E_MOTOR_BRAKE_HOLD) m_right.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-      m_left.move_velocity(0);
-      m_right.move_velocity(0);
+      if (m_left.get_brake_mode() != pros::E_MOTOR_BRAKE_HOLD) {
+        m_left.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+         m_left.move_velocity(0);
+      }
+      if (m_right.get_brake_mode() != pros::E_MOTOR_BRAKE_HOLD) {
+        m_right.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        m_right.move_velocity(0);
+      }
     }
   }
 }
