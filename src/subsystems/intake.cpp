@@ -7,8 +7,8 @@ namespace subsytems {
     // motors, sensors, etc
 
     // motor
-    pros::Motor m_left  (2, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
-    pros::Motor m_right (9, pros::E_MOTOR_GEARSET_18, true,  pros::E_MOTOR_ENCODER_DEGREES);
+    pros::Motor m_left  (11, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
+    pros::Motor m_right (3, pros::E_MOTOR_GEARSET_18, true,  pros::E_MOTOR_ENCODER_DEGREES);
 
 
 

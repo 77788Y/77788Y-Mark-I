@@ -3,6 +3,7 @@
 #include "subsystems/chassis.hpp"
 #include "subsystems/lift.hpp"
 #include "subsystems/intake.hpp"
+#include "subsystems/angler.hpp"
 
 // import subsystems into current namespace
 using namespace subsytems;
@@ -27,6 +28,10 @@ void opcontrol() {
 		// intake
 		if (controller.btn_r1 - controller.btn_r2) intake::move_voltage((controller.btn_r1 - controller.btn_r2) * 12000);
 		else intake::hold();
+
+		// angler
+		if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000);
+		else angler::hold();
 
 		pros::delay(10);
 	}
