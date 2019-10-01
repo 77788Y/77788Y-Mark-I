@@ -1,9 +1,17 @@
 #pragma once
 
 #include "main.h"
+#include "lib/units.hpp"
 
 namespace subsystems {
   namespace chassis {
+
+    ////
+    // constants
+    const units::Distance WHEEL_RADIUS = (4.125 / 2) * units::INCHES;
+    const units::Distance CHASSIS_DIAM = 11.5 * units::INCHES;
+
+
 
     ////
     // motors, sensors, etc
@@ -13,6 +21,25 @@ namespace subsystems {
     extern pros::Motor m_front_r;
     extern pros::Motor m_back_l;
     extern pros::Motor m_back_r;
+
+
+
+    ////
+    // variables
+
+    // position
+    inline units::Distance dist_l = 0;
+    inline units::Distance dist_r = 0;
+    inline units::Distance dist_avg = 0;
+    inline units::Angle orientation = 0;
+
+
+
+    ////
+    // update functions
+
+    // variables
+    void update_vars();
 
 
 
