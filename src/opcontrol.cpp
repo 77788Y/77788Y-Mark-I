@@ -6,7 +6,7 @@
 #include "subsystems/angler.hpp"
 
 // import subsystems into current namespace
-using namespace subsytems;
+using namespace subsystems;
 
 // declare/define controller
 Joystick controller;
@@ -22,8 +22,9 @@ void opcontrol() {
 		chassis::move_voltage(controller.analog_left_y * 12000.0, controller.analog_right_y * 12000.0);
 
 		// lift
-		if (controller.btn_l1 - controller.btn_l2) lift::move_voltage((controller.btn_l1 - controller.btn_l2) * 12000);
-		else lift::hold();
+		if (controller.btn_l1) lift::angle_target = lift::POS_MAX;
+		else if (controller.btn_l2) lift::angle_target = lift::POS_MIN;
+		else if (controller.btn_l1_new == -1 || controller.btn_l2_new == -1) lift::angle_target = lift::pos;
 
 		// intake
 		if ((controller.btn_r1 - controller.btn_r2) && !controller.btn_x) intake::move_voltage((controller.btn_r1 - controller.btn_r2) * 12000);
@@ -31,7 +32,7 @@ void opcontrol() {
 		else intake::move_voltage(-1000);
 
 		// angler
-		if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000);\
+		if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000);
 		else angler::hold();
 
 		pros::delay(10);

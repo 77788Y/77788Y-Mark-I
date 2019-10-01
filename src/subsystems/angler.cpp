@@ -1,6 +1,6 @@
 #include "subsystems/angler.hpp"
 
-namespace subsytems {
+namespace subsystems {
   namespace angler {
 
     ////

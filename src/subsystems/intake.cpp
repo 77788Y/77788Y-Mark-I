@@ -1,6 +1,6 @@
 #include "subsystems/intake.hpp"
 
-namespace subsytems {
+namespace subsystems {
   namespace intake {
 
     ////

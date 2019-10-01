@@ -1,6 +1,6 @@
 #include "subsystems/chassis.hpp"
 
-namespace subsytems {
+namespace subsystems {
   namespace chassis {
 
     ////
