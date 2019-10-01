@@ -26,11 +26,12 @@ void opcontrol() {
 		else lift::hold();
 
 		// intake
-		if (controller.btn_r1 - controller.btn_r2) intake::move_voltage((controller.btn_r1 - controller.btn_r2) * 12000);
-		else intake::hold();
+		if ((controller.btn_r1 - controller.btn_r2) && !controller.btn_x) intake::move_voltage((controller.btn_r1 - controller.btn_r2) * 12000);
+		else if (!controller.btn_x) intake::hold();
+		else intake::move_voltage(-1000);
 
 		// angler
-		if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000);
+		if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000);\
 		else angler::hold();
 
 		pros::delay(10);
