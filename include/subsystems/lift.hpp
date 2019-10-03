@@ -11,8 +11,8 @@ namespace subsystems {
     // macros
 
     // positions
-    const units::Angle POS_MAX = 45 * units::DEGREES;
-    const units::Angle POS_MIN = -45 * units::DEGREES;
+    const units::Angle POS_MAX = 55 * units::DEGREES;
+    const units::Angle POS_MIN = -31 * units::DEGREES;
 
     ////
     // motors, sensors, etc
@@ -22,19 +22,26 @@ namespace subsystems {
 
 
     ////
+    // update
+
+    // sensors
+    void sensors_update();
+
+
+    ////
     // control variables
 
     // current position
-    inline units::Angle pos = 0;
+    inline units::Angle pos = POS_MIN;
 
     // target positon
-    inline units::Angle angle_target = 0;
+    inline units::Angle angle_target = pos;
 
     // proportional constant
-    inline double kp = 0;
+    extern double kp;
 
     // time-derivative constant
-    inline double td;
+    extern double td;
 
 
 

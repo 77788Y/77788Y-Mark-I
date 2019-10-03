@@ -15,6 +15,10 @@ namespace subsystems {
 
     while (true) {
 
+      // sensors
+      angler::sensors_update();
+      lift::sensors_update();
+
       // subsystems
       lift::pd_update();
 

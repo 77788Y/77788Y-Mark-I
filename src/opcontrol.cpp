@@ -27,12 +27,14 @@ void opcontrol() {
 		else if (controller.btn_l1_new == -1 || controller.btn_l2_new == -1) lift::angle_target = lift::pos;
 
 		// intake
-		if ((controller.btn_r1 - controller.btn_r2) && !controller.btn_x) intake::move_voltage((controller.btn_r1 - controller.btn_r2) * 12000);
-		else if (!controller.btn_x) intake::hold();
-		else intake::move_voltage(-1000);
+		if ((controller.btn_r1 - controller.btn_r2) && !(controller.btn_b || controller.btn_x)) intake::move_voltage((controller.btn_r1 - controller.btn_r2) * 12000);
+		else if (controller.btn_a) intake::move_voltage(-750);
+		else if (controller.btn_b - controller.btn_x) intake::move_voltage((controller.btn_b - controller.btn_x) * 2500 + 1000);
+		else intake::hold();
 
 		// angler
-		if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000);
+		if (controller.btn_a) angler::update_auto_deposit();
+		else if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000 - 4000);
 		else angler::hold();
 
 		pros::delay(10);

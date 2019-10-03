@@ -8,7 +8,7 @@ namespace subsystems {
 
     // motor
     pros::Motor m_left  (4, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
-    pros::Motor m_right (7, pros::E_MOTOR_GEARSET_18, true,  pros::E_MOTOR_ENCODER_DEGREES);
+    pros::Motor m_right (8, pros::E_MOTOR_GEARSET_18, true,  pros::E_MOTOR_ENCODER_DEGREES);
 
 
 

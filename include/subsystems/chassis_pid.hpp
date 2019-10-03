@@ -13,6 +13,7 @@ namespace subsystems {
         double kp = 1;
         double ti = 0;
         double td = 0;
+        double windup_threshold = 1;
       };
 
 
@@ -20,14 +21,14 @@ namespace subsystems {
       inline PidConstants constants_default = {
         .kp = 1,
         .ti = 0,
-        .td = 0
+        .td = 0,
+        .windup_threshold = 1
       };
 
 
       // pid parameters
       inline units::Distance target_pos = 0;
       inline units::Time timeout = 0;
-      inline units::Time time_start = pros::millis();
       inline units::Distance threshold = 0;
       inline PidConstants constants = constants_default;
 
