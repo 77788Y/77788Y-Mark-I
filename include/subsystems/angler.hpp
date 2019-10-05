@@ -11,7 +11,7 @@ namespace subsystems {
     // constants
 
     // position
-    const units::Angle POS_RETRACTED = 136 * units::DEGREES;
+    const units::Angle POS_RETRACTED = 142 * units::DEGREES;
     const units::Angle POS_DEPOSIT = 90 * units::DEGREES;
 
     ////

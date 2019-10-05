@@ -1,6 +1,15 @@
 #pragma once
 
+#include <cmath>
+
 namespace generic {
+
+  // return sign of a value
+  template <typename T>
+  inline T sign(T val) {
+    return val / fabs(val);
+  }
+
 
   // clamp a value between two limits
   inline double clamp(double val, double min, double max) {
