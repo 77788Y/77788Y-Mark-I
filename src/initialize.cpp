@@ -5,7 +5,7 @@
 void initialize() {
 
   // initialize subsystem controllers
-  subsystems::task = std::make_shared<pros::Task>(pros::Task(subsystems::update_controllers, NULL, "subsystems"));
+  subsystems::task = std::make_shared<pros::Task>(pros::Task(subsystems::update_controllers, nullptr, "subsystems"));
 
 }
 

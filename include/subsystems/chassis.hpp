@@ -2,6 +2,7 @@
 
 #include "main.h"
 #include "lib/units.hpp"
+#include <memory>
 
 namespace subsystems {
   namespace chassis {
@@ -51,5 +52,13 @@ namespace subsystems {
 
     // move voltage (same left/right)
     void move_voltage(int val);
+
+
+
+    ////
+    // async
+
+    // mutex
+    inline pros::Mutex control_mutex;
   }
 }
