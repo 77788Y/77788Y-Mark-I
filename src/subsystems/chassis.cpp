@@ -1,4 +1,6 @@
 #include "subsystems/chassis.hpp"
+#include "subsystems/chassis_sine.hpp"
+#include "subsystems/chassis_rotate_bang.hpp"
 
 namespace subsystems {
   namespace chassis {
