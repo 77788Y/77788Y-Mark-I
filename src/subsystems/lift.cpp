@@ -64,7 +64,7 @@ namespace subsystems {
 
       // scale
       pd = generic::clamp(pd, -12000, 12000) + 5000 * cos(pos);
-      if (fabs((pd - prev_pd) / delta_t ) > 1000) pd = generic::clamp(pd, prev_pd - 1000, prev_pd + 1000);
+      if (fabs((pd - prev_pd) / delta_t ) > 2500) pd = generic::clamp(pd, prev_pd - 2500, prev_pd + 2500);
       if (pos <= POS_MIN + 8 * units::DEGREES && angle_target <= POS_MIN + 8 * units::DEGREES) pd = 0;
 
       // move motor and return
