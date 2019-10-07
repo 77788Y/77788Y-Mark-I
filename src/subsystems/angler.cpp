@@ -18,8 +18,7 @@ namespace subsystems {
 
     // update sensors
     void sensors_update() {
-      pos = -(m_motor.get_position() / 7) * units::DEGREES + POS_RETRACTED;
-      std::cout << pos / units::DEGREES << std::endl;
+      pos = m_motor.get_position() * units::DEGREES * 35.0 / 3.0 + POS_RETRACTED;
     }
 
     // move voltage (same left/right)
