@@ -53,6 +53,9 @@ namespace subsystems {
     // move voltage (same left/right)
     void move_voltage(int val);
 
+    // reset encoders
+    void tare();
+
 
 
     ////

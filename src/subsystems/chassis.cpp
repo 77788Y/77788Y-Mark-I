@@ -48,9 +48,18 @@ namespace subsystems {
       m_back_r.move_voltage(r);
     }
 
+
     // move voltage (same left/right)
     void move_voltage(int val) {
       move_voltage(val, val);
+    }
+
+
+    // reset encoders
+    void tare() {
+      enc_l.reset();
+      enc_r.reset();
+      update_vars();
     }
   }
 }
