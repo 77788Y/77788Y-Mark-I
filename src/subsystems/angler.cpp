@@ -29,8 +29,8 @@ namespace subsystems {
 
     // update auto deposit
     void update_auto_deposit() {
-      int scaled = 9000 * pow(1.5 * sin((2 * pos) - 180 * units::DEGREES), 1.5);
-      move_voltage(-100 + scaled);
+      if (pos < POS_DEPOSIT + 10 * units::DEGREES) move_voltage((POS_DEPOSIT - pos) * 69000.0);
+      else move_voltage(12000);
     }
 
     // hold position
