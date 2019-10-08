@@ -18,7 +18,7 @@ namespace subsystems {
 
     // update sensors
     void sensors_update() {
-      pos = m_motor.get_position() * units::DEGREES * 35.0 / 3.0 + POS_RETRACTED;
+      pos = -m_motor.get_position() * units::DEGREES * 3.0 / 35.0 + POS_RETRACTED;
     }
 
     // move voltage (same left/right)
@@ -29,7 +29,7 @@ namespace subsystems {
 
     // update auto deposit
     void update_auto_deposit() {
-      if (pos < POS_DEPOSIT + 10 * units::DEGREES) move_voltage((POS_DEPOSIT - pos) * 69000.0);
+      if (pos < POS_DEPOSIT + 30 * units::DEGREES) move_voltage((pos - POS_DEPOSIT) * 10000.0);
       else move_voltage(12000);
     }
 

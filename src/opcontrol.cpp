@@ -19,7 +19,7 @@ void opcontrol() {
 		controller.update();
 
 		// drive
-		chassis::move_voltage(controller.analog_left_y * 6000.0, controller.analog_right_y * 6000.0);
+		chassis::move_voltage(controller.analog_left_y * 7000.0, controller.analog_right_y * 7000.0);
 
 		// lift
 		if (controller.btn_l1) lift::angle_target = lift::POS_MAX;
@@ -37,6 +37,7 @@ void opcontrol() {
 		else if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000);
 		else angler::hold();
 
+		if (pros::millis() % 1000 <= 10) std::cout << angler::pos / units::DEGREES << std::endl;
 		pros::delay(10);
 	}
 }
