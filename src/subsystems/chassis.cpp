@@ -18,6 +18,11 @@ namespace subsystems {
     pros::ADIEncoder enc_l('A', 'B', false);
     pros::ADIEncoder enc_r('C', 'D', false);
 
+    // position and angle references
+    units::Distance dist_ref_l = 0;
+    units::Distance dist_ref_r = 0;
+    units::Angle orientation_ref = 0;
+
 
 
     ////
@@ -29,10 +34,10 @@ namespace subsystems {
       units::Angle angle_l = enc_l.get_value() * units::DEGREES;
       units::Angle angle_r = enc_r.get_value() * units::DEGREES;
 
-      dist_l = angle_l * WHEEL_RADIUS;
-      dist_r = angle_r * WHEEL_RADIUS;
+      dist_l = angle_l * WHEEL_RADIUS + dist_ref_l;
+      dist_r = angle_r * WHEEL_RADIUS + dist_ref_r;
       dist_avg = (dist_l + dist_r) * .5;
-      orientation = (dist_r - dist_l) / CHASSIS_DIAM;
+      orientation = (dist_r - dist_l) / CHASSIS_DIAM + orientation_ref;
     }
 
 
@@ -55,10 +60,19 @@ namespace subsystems {
     }
 
 
-    // reset encoders
-    void tare() {
-      enc_l.reset();
-      enc_r.reset();
+    // reset position
+    void tare_position(units::Distance ref) {
+      dist_ref_l = dist_l - ref;
+      dist_ref_r = dist_r - ref;
+
+      update_vars();
+    }
+
+
+    // reset orietation
+    void tare_oriention(units::Angle ref) {
+      orientation_ref = orientation - ref;
+
       update_vars();
     }
   }

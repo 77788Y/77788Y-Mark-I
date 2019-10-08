@@ -54,8 +54,8 @@ namespace subsystems {
     void move_voltage(int val);
 
     // reset encoders
-    void tare();
-
+    void tare_position(units::Distance ref = 0);
+    void tare_oriention(units::Angle ref = 0);
 
 
     ////
