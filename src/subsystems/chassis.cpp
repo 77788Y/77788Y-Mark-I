@@ -70,7 +70,7 @@ namespace subsystems {
 
 
     // reset orietation
-    void tare_oriention(units::Angle ref) {
+    void tare_orientation(units::Angle ref) {
       orientation_ref = orientation - ref;
 
       update_vars();

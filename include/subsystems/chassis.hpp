@@ -55,7 +55,7 @@ namespace subsystems {
 
     // reset encoders
     void tare_position(units::Distance ref = 0);
-    void tare_oriention(units::Angle ref = 0);
+    void tare_orientation(units::Angle ref = 0);
 
 
     ////
