@@ -18,6 +18,7 @@ namespace subsystems {
       // sensors
       angler::sensors_update();
       lift::sensors_update();
+      chassis::update_vars();
 
       // subsystems
       lift::pd_update();

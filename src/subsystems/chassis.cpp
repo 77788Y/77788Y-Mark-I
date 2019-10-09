@@ -15,8 +15,8 @@ namespace subsystems {
     pros::Motor m_back_r  (9, pros::E_MOTOR_GEARSET_18, true,  pros::E_MOTOR_ENCODER_DEGREES);
 
     // encoders
-    pros::ADIEncoder enc_l('A', 'B', false);
-    pros::ADIEncoder enc_r('C', 'D', false);
+    pros::ADIEncoder enc_l('A', 'B', true);
+    pros::ADIEncoder enc_r('C', 'D', true);
 
     // position and angle references
     units::Distance dist_ref_l = 0;
