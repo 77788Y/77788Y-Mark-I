@@ -4,6 +4,7 @@
 #include "subsystems/chassis.hpp"
 #include "subsystems/chassis_auton.hpp"
 #include "subsystems/intake.hpp"
+#include "autons.hpp"
 
 void blue_fivecube(){
   subsystems::chassis::tare_orientation(180);

@@ -19,7 +19,8 @@ void opcontrol() {
 		controller.update();
 
 		// drive
-		chassis::move_voltage(controller.analog_left_y * 7000.0, controller.analog_right_y * 7000.0);
+		if (controller.btn_y) chassis::move_voltage(controller.analog_left_y * 12000.0, controller.analog_right_y * 12000.0);
+		else chassis::move_voltage(controller.analog_left_y * 7500.0, controller.analog_right_y * 7500.0);
 
 		// lift
 		if (controller.btn_l1) lift::angle_target = lift::POS_MAX;

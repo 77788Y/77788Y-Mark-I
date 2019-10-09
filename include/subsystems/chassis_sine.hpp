@@ -17,12 +17,15 @@ namespace subsystems {
         int max_vol = 8000;
         units::Distance dist_accel = 4 * units::INCHES;
         units::Distance dist_decel = 8 * units::INCHES;
-        
+
       };
 
       // default params
       inline TuningParams tuning_params_default_no_cubes;
       inline TuningParams tuning_params_default_all_cubes = {
+        .min_accel = 4000,
+        .min_decel = 1500,
+        .max_vol = 7000,
         .dist_accel = 10 * units::INCHES,
         .dist_decel = 4 * units::INCHES
       };
