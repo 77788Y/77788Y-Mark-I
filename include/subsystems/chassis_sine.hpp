@@ -13,10 +13,10 @@ namespace subsystems {
       struct TuningParams {
 
         int min_accel = 4000;
-        int min_decel = 0;
-        int max_vol = 12000;
+        int min_decel = 1500;
+        int max_vol = 8000;
         units::Distance dist_accel = 4 * units::INCHES;
-        units::Distance dist_decel = 10 * units::INCHES;
+        units::Distance dist_decel = 8 * units::INCHES;
         
       };
 

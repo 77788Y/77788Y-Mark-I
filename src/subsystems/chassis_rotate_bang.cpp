@@ -1,6 +1,7 @@
 #include "subsystems/chassis.hpp"
 #include "subsystems/chassis_rotate_bang.hpp"
 #include "lib/generic.hpp"
+#include <iostream>
 
 namespace subsystems {
   namespace chassis {
@@ -26,7 +27,8 @@ namespace subsystems {
         tuning_params = _tuning;
         starting_angle = orientation;
         target_angle = _angle + _relative * chassis::orientation;
-        interrupt_time = pros::millis() + _timeout;
+        std::cout << orientation << "\t" << target_angle << std::endl;
+        interrupt_time = _timeout < 0 ? _timeout : pros::millis() + _timeout;
       }
 
 
@@ -34,22 +36,28 @@ namespace subsystems {
       bool perform_motion() {
 
         // speedy turn
-        bool is_behind = chassis::orientation < target_angle;
-        int sgn = generic::sign(target_angle - chassis::orientation);
-        while ((chassis::orientation < target_angle - tuning_params.stop_within * sgn) == is_behind) {
-          chassis::move_voltage(-tuning_params.first_voltage * sgn, tuning_params.first_voltage * sgn);
+        int sign = generic::sign(target_angle - chassis::orientation);
+        while ((interrupt_time < 0 || pros::millis() < interrupt_time) &&  sign * (target_angle - chassis::orientation) > tuning_params_default.stop_within_first) {
+          chassis::move_voltage(-tuning_params.first_voltage * sign, tuning_params.first_voltage * sign);
+          pros::delay(10);
         }
 
         // wait a bit for momentum to carry past target
         pros::delay(tuning_params.time_between);
 
         // slow turn
-        is_behind = chassis::orientation < target_angle;
-        sgn = generic::sign(target_angle - chassis::orientation);
-        while ((chassis::orientation < target_angle) == is_behind) {
-          chassis::move_voltage(-tuning_params.second_voltage * sgn, tuning_params.second_voltage * sgn);
+        sign = generic::sign(target_angle - chassis::orientation);
+        while ((interrupt_time < 0 || pros::millis() < interrupt_time) &&  sign * (target_angle - chassis::orientation) > tuning_params_default.stop_within_second) {
+          chassis::move_voltage(-tuning_params.second_voltage * sign, tuning_params.second_voltage * sign);
+          pros::delay(10);
         }
 
+        // brake
+        sign = generic::sign(target_angle - chassis::orientation);
+        move_voltage(-1000 * sign, 1000 * sign);
+        pros::delay(250);
+        move_voltage(0);
+        
         return true;
       }
 
@@ -58,8 +66,9 @@ namespace subsystems {
 
         if (chassis::control_mutex.take(0)) {
           initialize_motion(_angle, _timeout, _relative, _tuning);
-          return perform_motion();
+          bool r = perform_motion();
           chassis::control_mutex.give();
+          return r;
         }
 
         return false;

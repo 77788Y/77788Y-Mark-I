@@ -7,7 +7,7 @@
 
 void autonomous() {
   
-move_dist(48 * units::INCHES, -1, false);
-// rotate(90 * units::DEGREES);
+move_dist(4 * units::INCHES, -1, false);
+rotate(90 * units::DEGREES);
 
 }
