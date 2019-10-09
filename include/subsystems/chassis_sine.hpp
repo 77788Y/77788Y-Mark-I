@@ -12,16 +12,18 @@ namespace subsystems {
       // tuning params
       struct TuningParams {
 
-        int volt_min;
-        units::Distance dist_accel;
-        units::Distance dist_decel;
+        int min_accel = 4000;
+        int min_decel = 0;
+        int max_vol = 12000;
+        units::Distance dist_accel = 4 * units::INCHES;
+        units::Distance dist_decel = 10 * units::INCHES;
         
       };
 
       // default params
-      inline TuningParams tuning_params_default = {
-        .volt_min = 2000,
-        .dist_accel = 4 * units::INCHES,
+      inline TuningParams tuning_params_default_no_cubes;
+      inline TuningParams tuning_params_default_all_cubes = {
+        .dist_accel = 10 * units::INCHES,
         .dist_decel = 4 * units::INCHES
       };
 
@@ -30,7 +32,7 @@ namespace subsystems {
       // syncronous movement
 
       // move a distance
-      bool move_dist(units::Distance _dist, units::Time _timeout = -1, bool _relative = true, TuningParams _tuning = tuning_params_default);
+      bool move_dist(units::Distance _dist, units::Time _timeout = -1, bool _relative = true, TuningParams _tuning = tuning_params_default_no_cubes);
     }
   }
 }
