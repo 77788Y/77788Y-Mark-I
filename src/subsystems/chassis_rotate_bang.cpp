@@ -54,10 +54,10 @@ namespace subsystems {
 
         // brake
         sign = generic::sign(target_angle - chassis::orientation);
-        move_voltage(-1000 * sign, 1000 * sign);
-        pros::delay(250);
+        move_voltage(-2000 * sign, 2000 * sign);
+        pros::delay(300);
         move_voltage(0);
-        
+
         return true;
       }
 

@@ -12,11 +12,11 @@ namespace subsystems {
       ////
       // tuning params
       struct TuningParams {
-        int first_voltage = 8000;
-        int second_voltage = 4000;
-        units::Angle stop_within_first = 15 * units::DEGREES;
-        units::Angle stop_within_second = 2 * units::DEGREES;
-        units::Time time_between = 100 * units::MS;
+        int first_voltage = 7000;
+        int second_voltage = 6000;
+        units::Angle stop_within_first = 2 * units::DEGREES;
+        units::Angle stop_within_second = 0 * units::DEGREES;
+        units::Time time_between = 50 * units::MS;
       };
 
       // default params
