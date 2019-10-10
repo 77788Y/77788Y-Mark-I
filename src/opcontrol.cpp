@@ -38,7 +38,16 @@ void opcontrol() {
 		else if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000);
 		else angler::hold();
 
-		if (pros::millis() % 1000 <= 10) std::cout << angler::pos / units::DEGREES << std::endl;
+		// debug
+		if (pros::millis() % 250 <= 10) {
+
+			std::cout << "Angler angle:  " << angler::pos / units::DEGREES << "°" << std::endl;
+			std::cout << "Lift angle:    " << angler::pos / units::DEGREES << "°" << std::endl;
+			std::cout << "Chassis Left:  " << chassis::dist_l << "\"" << std::endl;
+			std::cout << "Chassis Right: " << chassis::dist_r << "\"" << std::endl;
+			std::cout << "Chassis Angle: " << chassis::orientation / units::DEGREES << "°" << std::endl << std::endl;
+		}
+
 		pros::delay(10);
 	}
 }
