@@ -37,18 +37,19 @@ void red_fivecube(){
   move_dist(35 * units::INCHES, 3000, true, tuning_params_slow);
   pros::delay(700);
   subsystems::intake::hold();
-  move_dist(18 * units::INCHES, 2000, false, tuning_params_default_all_cubes);
+  move_dist(17 * units::INCHES, 2000, false, tuning_params_default_all_cubes);
 
   rotate(-135 * units::DEGREES, 2000);
+  subsystems::intake::move_voltage(-2500);
+  pros::delay(700);
+  subsystems::intake::hold();
 
-  move_dist(12 * units::INCHES, 2000);
-  subsystems::intake::move_voltage(-2250);
-  pros::delay(450);
+  move_dist(11 * units::INCHES, 2000);
   while (subsystems::angler::pos > subsystems::angler::POS_DEPOSIT + 8 * units::DEGREES) {
     subsystems::angler::update_auto_deposit(true);
     pros::delay(10);
   }
-  move_dist(4 * units::INCHES, 1000);
+  move_dist(6 * units::INCHES, 800);
   subsystems::angler::move_voltage(-12000);
   pros::delay(675);
   subsystems::angler::hold();
