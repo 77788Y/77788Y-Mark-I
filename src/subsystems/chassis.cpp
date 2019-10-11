@@ -62,8 +62,8 @@ namespace subsystems {
 
     // reset position
     void tare_position(units::Distance ref) {
-      dist_ref_l = dist_l - ref;
-      dist_ref_r = dist_r - ref;
+      dist_ref_l = ref - (dist_l - dist_ref_l);
+      dist_ref_r = ref - (dist_r - dist_ref_r);
 
       update_vars();
     }
@@ -71,7 +71,7 @@ namespace subsystems {
 
     // reset orietation
     void tare_orientation(units::Angle ref) {
-      orientation_ref = orientation - ref;
+      orientation_ref = ref - ((orientation - orientation_ref) / CHASSIS_DIAM);
 
       update_vars();
     }

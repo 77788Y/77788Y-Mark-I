@@ -30,6 +30,13 @@ namespace subsystems {
         .dist_decel = 4 * units::INCHES
       };
 
+      inline SineTuningParams tuning_params_slow = {
+        .min_accel = 3000,
+        .min_decel = 6000,
+        .max_vol = 3000,
+        .dist_accel = 5 * units::INCHES,
+        .dist_decel = 5 * units::INCHES
+      };
 
       ////
       // syncronous movement

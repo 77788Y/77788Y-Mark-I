@@ -6,33 +6,8 @@
 #include "subsystems/intake.hpp"
 #include "autons.hpp"
 
-SineTuningParams tuning_params_slow = {
-  .min_accel = 3000,
-  .min_decel = 6000,
-  .max_vol = 3000,
-  .dist_accel = 5 * units::INCHES,
-  .dist_decel = 5 * units::INCHES
-};
-
-void flip_out(){
-  while (subsystems::angler::pos > subsystems::angler::POS_RETRACTED - 5 *units::DEGREES){
-    subsystems::angler::move_voltage(12000);
-  }
-  while (subsystems::angler::pos < subsystems::angler::POS_RETRACTED){
-    subsystems::angler::move_voltage(-12000);
-  }
-  subsystems::angler::hold();
-  while (subsystems::lift::pos < subsystems::lift::POS_MIN + 20 * units::DEGREES){
-    subsystems::lift::move_voltage(12000);
-  }
-  while (subsystems::lift::pos > subsystems::lift::POS_MIN){
-    subsystems::lift::move_voltage(-100);
-  }
-  subsystems::lift::hold();
-}
-
-void red_fivecube(){
-  flip_out();
+void red_fivecube() {
+  subsystems::chassis::tare_orientation(0);
   subsystems::intake::move_voltage(12000);
   move_dist(35 * units::INCHES, 3000, true, tuning_params_slow);
   pros::delay(700);

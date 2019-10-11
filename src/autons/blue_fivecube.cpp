@@ -6,18 +6,27 @@
 #include "subsystems/intake.hpp"
 #include "autons.hpp"
 
-void blue_fivecube(){
-  subsystems::chassis::tare_orientation(180);
+void blue_fivecube() {
+  subsystems::chassis::tare_orientation(180 * units::DEGREES);
   subsystems::intake::move_voltage(12000);
-  move_dist(32 * units::INCHES);
-  pros::delay(500);
-  move_dist(12 * units::INCHES, -1, false);
+  move_dist(35 * units::INCHES, 3000, true, tuning_params_slow);
+  pros::delay(700);
+  subsystems::intake::hold();
+  move_dist(17 * units::INCHES, 2000, false, tuning_params_default_all_cubes);
+
+  rotate(318 * units::DEGREES, 2000);
+  subsystems::intake::move_voltage(-2500);
+  pros::delay(700);
   subsystems::intake::hold();
 
-  rotate(270 * units::DEGREES);
-
-  move_dist(20 * units::INCHES);
-  subsystems::angler::update_auto_deposit();
-
-  move_dist(-15 * units::INCHES);
+  move_dist(10 * units::INCHES, 2000);
+  while (subsystems::angler::pos > subsystems::angler::POS_DEPOSIT + 8 * units::DEGREES) {
+    subsystems::angler::update_auto_deposit(true);
+    pros::delay(10);
+  }
+  move_dist(6 * units::INCHES, 800);
+  subsystems::angler::move_voltage(-12000);
+  pros::delay(675);
+  subsystems::angler::hold();
+  move_dist(-15 * units::INCHES, 1000);
 }
