@@ -6,7 +6,16 @@
 #include "subsystems/intake.hpp"
 #include "autons.hpp"
 
-void blue_fivecube() {
+void blue_wide_zone() {
+
+  // "slow" turn parameters
+  TuningParams turn_slow = {
+    .first_voltage = 5000,
+    .second_voltage = 3000,
+    .stop_within_first = 3 * units::DEGREES,
+    .stop_within_second = 0 * units::DEGREES,
+    .time_between = 50 * units::MS
+  };
 
   // tare orientation
   subsystems::chassis::tare_orientation(180 * units::DEGREES);
@@ -15,13 +24,12 @@ void blue_fivecube() {
   subsystems::intake::move_voltage(12000);
   move_dist(35 * units::INCHES, 3000, true, tuning_params_slow);
   pros::delay(700);
-  subsystems::intake::hold();
 
   // back out
-  move_dist(17 * units::INCHES, 2000, false, tuning_params_default_all_cubes);
+  move_dist(4 * units::INCHES, 2000, false, tuning_params_default_all_cubes);
 
   // rotate
-  rotate(318 * units::DEGREES, 2000);
+  rotate(85 * units::DEGREES, 3000, true, turn_slow);
 
   // make sure cubes are at the bottom of the intake
   subsystems::intake::move_voltage(-2500);
@@ -29,7 +37,7 @@ void blue_fivecube() {
   subsystems::intake::hold();
 
   // move to goal
-  move_dist(10 * units::INCHES, 2000);
+  move_dist(72 * units::INCHES, 6000);
 
   // dump load
   while (subsystems::angler::pos > subsystems::angler::POS_DEPOSIT + 8 * units::DEGREES) {
