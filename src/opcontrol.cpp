@@ -1,4 +1,5 @@
 #include "main.h"
+#include "macros.hpp"
 #include "lib/joystick.hpp"
 #include "subsystems/chassis.hpp"
 #include "subsystems/lift.hpp"
@@ -18,8 +19,20 @@ void opcontrol() {
 		// update controller
 		controller.update();
 
+		// dirty hack to disable angler
+		if (macros::current == macros::CODE_ANGLER_LIFT && (controller.btn_r1 || controller.btn_r2 || controller.btn_x || controller.btn_b || controller.btn_a)) {
+			macros::notify(macros::CODE_INTERRUPT);
+			pros::delay(2);
+		}
+
+		// move angler for lift macro
+		if (controller.btn_y_new == 1) {
+			macros::notify(macros::CODE_ANGLER_LIFT);
+			pros::delay(2);
+		}
+
 		// drive
-		if (controller.btn_y) chassis::move_voltage(controller.analog_left_y * 12000.0, controller.analog_right_y * 12000.0);
+		if (controller.btn_r1 && controller.btn_r2) chassis::move_voltage(controller.analog_left_y * 12000.0, controller.analog_right_y * 12000.0);
 		else chassis::move_voltage(controller.analog_left_y * 9500.0, controller.analog_right_y * 9500.0);
 
 		// lift
