@@ -7,6 +7,7 @@ namespace generic {
   // return sign of a value
   template <typename T>
   inline T sign(T val) {
+    if (val == 0) return 0;
     return val / fabs(val);
   }
 
