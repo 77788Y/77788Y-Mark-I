@@ -45,8 +45,25 @@ namespace subsystems {
     ////
     // control functions
 
+    void hold() {
+      m_front_l.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+      m_front_r.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+      m_back_l.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+      m_back_r.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+      
+      m_front_l.move_velocity(0);
+      m_front_r.move_velocity(0);
+      m_back_l.move_velocity(0);
+      m_back_r.move_velocity(0);
+    }
+
     // move voltage (separate left and right)
     void move_voltage(int l, int r) {
+      m_front_l.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+      m_front_r.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+      m_back_l.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+      m_back_r.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+
       m_front_l.move_voltage(l);
       m_front_r.move_voltage(r);
       m_back_l.move_voltage(l);

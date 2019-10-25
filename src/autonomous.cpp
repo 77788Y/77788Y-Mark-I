@@ -7,19 +7,20 @@
 #include "autons.hpp"
 
 void flip_out(){
-  while (subsystems::angler::pos > subsystems::angler::POS_RETRACTED - 5 *units::DEGREES){
+
+  while (subsystems::angler::pos > subsystems::angler::POS_RETRACTED - 8 * units::DEGREES){
     subsystems::angler::move_voltage(12000);
   }
   while (subsystems::angler::pos < subsystems::angler::POS_RETRACTED){
     subsystems::angler::move_voltage(-12000);
   }
   subsystems::angler::hold();
+  pros::delay(100);
   while (subsystems::lift::pos < subsystems::lift::POS_MIN + 20 * units::DEGREES){
     subsystems::lift::move_voltage(12000);
   }
-  while (subsystems::lift::pos > subsystems::lift::POS_MIN){
-    subsystems::lift::move_voltage(-100);
-  }
+  subsystems::lift::move_voltage(-100);
+  pros::delay(350);
   subsystems::lift::hold();
 }
 
@@ -27,9 +28,10 @@ void flip_out(){
 void autonomous() {
 
   flip_out();
+  pros::delay(5);
 
-  // red_fivecube();
+  red_fivecube();
   // blue_fivecube();
-  red_wide_zone();
+  // red_wide_zone();
   // blue_wide_zone();
 }

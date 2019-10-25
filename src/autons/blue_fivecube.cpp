@@ -18,13 +18,13 @@ void blue_fivecube() {
   subsystems::intake::hold();
 
   // back out
-  move_dist(17 * units::INCHES, 2000, false, tuning_params_default_all_cubes);
+  move_dist(16.5 * units::INCHES, 2000, false, tuning_params_default_all_cubes);
 
   // rotate
   rotate(318 * units::DEGREES, 2000);
 
   // make sure cubes are at the bottom of the intake
-  subsystems::intake::move_voltage(-2500);
+  subsystems::intake::move_voltage(-3000);
   pros::delay(700);
   subsystems::intake::hold();
 
@@ -32,13 +32,15 @@ void blue_fivecube() {
   move_dist(10 * units::INCHES, 2000);
 
   // dump load
+  subsystems::intake::move_voltage(-1000);
   while (subsystems::angler::pos > subsystems::angler::POS_DEPOSIT + 8 * units::DEGREES) {
     subsystems::angler::update_auto_deposit(true);
     pros::delay(10);
   }
+  subsystems::intake::hold();
 
   // make sure load is fully in place
-  move_dist(6 * units::INCHES, 800);
+  move_dist(6 * units::INCHES, 800, true, tuning_params_slow);
   subsystems::angler::move_voltage(-12000);
   pros::delay(675);
   subsystems::angler::hold();

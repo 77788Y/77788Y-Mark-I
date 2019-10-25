@@ -13,10 +13,10 @@ namespace subsystems {
       struct SineTuningParams {
 
         int min_accel = 4000;
-        int min_decel = 1500;
-        int max_vol = 9000;
+        int min_decel = 2000;
+        int max_vol = 8000;
         units::Distance dist_accel = 4 * units::INCHES;
-        units::Distance dist_decel = 8 * units::INCHES;
+        units::Distance dist_decel = 6 * units::INCHES;
 
       };
 

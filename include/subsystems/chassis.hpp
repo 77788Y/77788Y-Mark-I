@@ -47,6 +47,9 @@ namespace subsystems {
     ////
     // control functions
 
+    // hold motors
+    void hold();
+
     // move voltage (separate left and right)
     void move_voltage(int l, int r);
 
