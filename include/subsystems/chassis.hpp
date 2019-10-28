@@ -60,37 +60,39 @@ namespace subsystems {
    void move_by (
       units::Distance dist,
       units::Time timeout = -1,
+      int max_voltage = 8000,
       int start_voltage = 4000, units::Distance accel_dist = 4 * units::INCHES,
       int end_voltage   = 2000, units::Distance decel_dist = 6 * units::INCHES,
-      int max_voltage = 8000
+      double angle_correct_weight = 7500
     );
 
     // move to a distance
     inline void move_to (
       units::Distance dist,
       units::Time timeout = -1,
+      int max_voltage = 8000,
       int start_voltage = 4000, units::Distance accel_dist = 4 * units::INCHES,
       int end_voltage   = 2000, units::Distance decel_dist = 6 * units::INCHES,
-      int max_voltage = 8000
-    ) { move_by(dist - dist_avg, timeout, start_voltage, accel_dist, end_voltage, decel_dist, max_voltage); }
+      double angle_correct_weight = 7500
+    ) { move_by(dist - dist_avg, timeout, max_voltage, start_voltage, accel_dist, end_voltage, decel_dist); }
 
     // rotate by an angle
    void rotate_by (
       units::Angle angle,
       units::Time timeout = -1,
+      int max_voltage = 8000,
       int start_voltage = 4000, units::Angle accel_angle = 4 * units::INCHES,
-      int end_voltage   = 2000, units::Angle decel_angle = 6 * units::INCHES,
-      int max_voltage = 8000
+      int end_voltage   = 2000, units::Angle decel_angle = 6 * units::INCHES
     );
 
     // rotate to an angle
     inline void rotate_to (
       units::Angle angle,
       units::Time timeout = -1,
+      int max_voltage = 8000,
       int start_voltage = 4000, units::Angle accel_angle = 4 * units::INCHES,
-      int end_voltage   = 2000, units::Angle decel_angle = 6 * units::INCHES,
-      int max_voltage = 8000
-    ) { rotate_by(angle - orientation, timeout, start_voltage, accel_angle, end_voltage, decel_angle, max_voltage); }
+      int end_voltage   = 2000, units::Angle decel_angle = 6 * units::INCHES
+    ) { rotate_by(angle - orientation, timeout, max_voltage, start_voltage, accel_angle, end_voltage, decel_angle); }
 
     // reset encoders
     void tare_position(units::Distance ref = 0);

@@ -9,7 +9,7 @@ namespace subsystems {
     // move a distance
 
     // relative motion
-    void move_by(units::Distance dist, units::Time timeout, int start_voltage, units::Distance accel_dist, int end_voltage, units::Distance decel_dist, int max_voltage) {
+    void move_by(units::Distance dist, units::Time timeout, int max_voltage, units::Distance decel_dist, int start_voltage, units::Distance accel_dist, int end_voltage, double angle_correct_weight) {
 
       // calculate scale
       double scale = accel_dist + decel_dist > fabs(dist) ? fabs(dist / (accel_dist + decel_dist)) : 1;
@@ -33,8 +33,9 @@ namespace subsystems {
       SineProfile accel_profile(actual_start_voltage, actual_max_voltage, actual_accel_dist);
       SineProfile decel_profile(actual_max_voltage,   actual_end_voltage, actual_decel_dist);
 
-      // calculate exit parameters
+      // calculate motion parameters
       units::Distance starting_pos = dist_avg;
+      units::Angle starting_orientation = orientation;
       units::Distance target_dist = dist_avg + dist;
       units::Time interrupt_time = timeout >= 0 ? pros::millis() + timeout : timeout;
 
@@ -52,7 +53,14 @@ namespace subsystems {
       // follow decel profile
       while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * (target_dist - dist_avg) > 0) {
 
-        move_voltage(decel_profile.get_at(actual_decel_dist - (target_dist - dist_avg)));
+        // calculate raw voltage
+        double speed = decel_profile.get_at(actual_decel_dist - (target_dist - dist_avg));
+
+        // correct angle
+        double correct_voltage = (starting_orientation - orientation) * angle_correct_weight;
+
+        // move motors
+        move_voltage(speed - correct_voltage, speed + correct_voltage);
         pros::delay(10);
       }
 
@@ -68,7 +76,7 @@ namespace subsystems {
     // rotate
 
     // relative motion
-    void rotate_by(units::Angle angle, units::Time timeout, int start_voltage, units::Angle accel_angle, int end_voltage, units::Angle decel_angle, int max_voltage) {
+    void rotate_by(units::Angle angle, units::Time timeout, int max_voltage, int start_voltage, units::Angle accel_angle, int end_voltage, units::Angle decel_angle) {
 
       // calculate scale
       double scale = accel_angle + decel_angle > fabs(angle) ? fabs(angle / (accel_angle + decel_angle)) : 1;
