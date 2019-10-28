@@ -61,7 +61,7 @@ namespace subsystems {
 
         // accelerate
         std::cout << "accelerating" << std::endl;
-        bool is_behind = dist_avg < dist_accel;
+        // bool is_behind = dist_avg < dist_accel;
         while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * (dist_accel - (dist_avg - starting_pos)) > 0) {
 
           move_voltage((amp_accel * .5) * cos((M_PI * fabs(dist_avg - starting_pos) / dist_accel) + M_PI) +
@@ -84,7 +84,7 @@ namespace subsystems {
 
         // decelerate
         std::cout << "decelerating" << std::endl;
-        is_behind = dist_avg < target_pos;
+        // is_behind = dist_avg < target_pos;
         while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * (target_pos - dist_avg) > 0) {
 
           move_voltage((amp_decel * .5) * cos((M_PI * fabs(target_pos - dist_avg) / dist_decel) + M_PI) +

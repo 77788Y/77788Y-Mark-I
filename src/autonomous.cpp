@@ -29,7 +29,7 @@ void autonomous() {
   flip_out();
   pros::delay(5);
 
-  red_fivecube();
+  // red_fivecube();
   // blue_fivecube();
   // red_wide_zone();
   // blue_wide_zone();

@@ -29,4 +29,11 @@ namespace generic {
     if (val < min) return wrap(val + (max - min), min, max);
     return val;
   }
+
+
+  // return the value with the smaller magnitude
+  template <typename T>
+  inline T min_mag(T a, T b) {
+    return (fabs(a) < fabs(b)) ? a : b;
+  }
 }

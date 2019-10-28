@@ -56,6 +56,24 @@ namespace subsystems {
     // move voltage (same left/right)
     void move_voltage(int val);
 
+    // move by distance
+   void move_dist_relative (
+      units::Distance dist,
+      units::Time timeout = -1,
+      int start_voltage = 4000, units::Distance accel_dist = 4 * units::INCHES,
+      int end_voltage   = 2000, units::Distance decel_dist = 6 * units::INCHES,
+      int max_voltage = 8000
+    );
+
+    // move to a distance
+    inline void move_dist_absolute (
+      units::Distance dist,
+      units::Time timeout = -1,
+      int start_voltage = 4000, units::Distance accel_dist = 4 * units::INCHES,
+      int end_voltage   = 2000, units::Distance decel_dist = 6 * units::INCHES,
+      int max_voltage = 8000
+    ) { move_dist_relative(dist - dist_avg, timeout, start_voltage, accel_dist, end_voltage, decel_dist, max_voltage); }
+
     // reset encoders
     void tare_position(units::Distance ref = 0);
     void tare_orientation(units::Angle ref = 0);
