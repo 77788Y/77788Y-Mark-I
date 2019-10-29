@@ -10,13 +10,71 @@
 // import subsystems into current namespace
 using namespace subsystems;
 
-// declare/define controller
+// declare and define controller
 Joystick controller;
+
+// declare and define vision
+pros::Vision vision(21);
+
+
+// line-up alert
+void lineup_alert(void*) {
+	while (true) {
+
+		// update signature
+		auto sig = vision.get_by_sig(0, 1);
+
+		// check if in range
+		if (sig.height > 100 && sig.width > 250 && abs(sig.x_middle_coord - 158) <= 50 && abs(sig.top_coord) <= 30 && abs(sig.top_coord + sig.height - 135) <= 15) {
+			
+			// do controller stuff
+			pros::delay(200);
+			controller.controller.set_text(0, 0, "               ");
+			pros::delay(50);
+			controller.controller.set_text(1, 0, "               ");
+			pros::delay(50);
+			controller.controller.set_text(2, 0, "               ");
+			pros::delay(200);
+			controller.controller.rumble("-");
+			std::cout << "entered" << std::endl;
+			pros::delay(200);
+			controller.controller.set_text(1, 0, "    IN THE YARD");
+			pros::delay(200);
+
+			// wait until out of range
+			sig = vision.get_by_sig(0, 1);
+			while (sig.height > 100 && sig.width > 250 && abs(sig.x_middle_coord - 158) <= 60 && abs(sig.top_coord) <= 40 && abs(sig.top_coord + sig.height - 135) <= 35) {
+
+				pros::delay(20);
+				sig = vision.get_by_sig(0, 1);
+			}
+
+			// do controller stuff
+			pros::delay(200);
+			controller.controller.set_text(0, 0, "               ");
+			pros::delay(50);
+			controller.controller.set_text(1, 0, "               ");
+			pros::delay(50);
+			controller.controller.set_text(2, 0, "               ");
+			pros::delay(200);
+			controller.controller.rumble(".");
+			std::cout << "exited" << std::endl;
+			pros::delay(500);
+		}
+	
+		pros::delay(20);
+	}
+}
+
+
 
 void opcontrol() {
 
   // initialize macros
   macros::init();
+
+	// start vision task
+	pros::Task vision_task(lineup_alert, nullptr, "lineup alert");
 
 	while (true) {
 
@@ -68,7 +126,7 @@ void opcontrol() {
 		}
 
 		// debug
-		if (pros::millis() % 250 <= 10) {
+		if (false && pros::millis() % 250 <= 10) {
 
 			std::cout << "Angler angle:  " << angler::pos / units::DEGREES << "°" << std::endl;
 			std::cout << "Lift angle:    " << angler::pos / units::DEGREES << "°" << std::endl;
