@@ -1,6 +1,7 @@
 #pragma once
 
 #include "lib/generic.hpp"
+#include <iostream>
 
 class SineProfile {
 

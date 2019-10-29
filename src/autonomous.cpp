@@ -17,7 +17,7 @@ void flip_out(){
   }
   angler::hold();
   pros::delay(100);
-  while (lift::pos < lift::POS_MIN + 20 * units::DEGREES){
+  while (lift::pos < lift::POS_MIN + 10 * units::DEGREES){
     lift::move_voltage(12000);
   }
   lift::move_voltage(-100);

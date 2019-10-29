@@ -26,7 +26,7 @@ void lineup_alert(void*) {
 
 		// check if in range
 		if (sig.height > 100 && sig.width > 250 && abs(sig.x_middle_coord - 158) <= 50 && abs(sig.top_coord) <= 30 && abs(sig.top_coord + sig.height - 135) <= 15) {
-			
+
 			// do controller stuff
 			controller.controller.set_text(0, 0, "               ");
 			pros::delay(50);
@@ -57,7 +57,7 @@ void lineup_alert(void*) {
 			std::cout << "exited" << std::endl;
 			pros::delay(300);
 		}
-	
+
 		pros::delay(20);
 	}
 }
@@ -96,7 +96,7 @@ void opcontrol() {
 			// exponential drive
 			double left  = (.25 * pow(5, fabs(controller.analog_left_y))  - .25) * generic::sign(controller.analog_left_y);
 			double right = (.25 * pow(5, fabs(controller.analog_right_y)) - .25) * generic::sign(controller.analog_right_y);
-			
+
 			chassis::move_voltage(left * 12000.0, right * 12000.0);
 		}
 
@@ -106,7 +106,7 @@ void opcontrol() {
 			else if (controller.btn_l2) lift::angle_target = lift::POS_MIN;
 		}
 		else if (controller.btn_l1_new || controller.btn_l2_new) lift::angle_target = lift::pos;
-		
+
 		if (macros::current != macros::CODE_ANGLER_LIFT) {
 
 			// intake
@@ -122,7 +122,7 @@ void opcontrol() {
 		}
 
 		// debug
-		if (false && pros::millis() % 250 <= 10) {
+		if (true && pros::millis() % 250 <= 10) {
 
 			std::cout << "Angler angle:  " << angler::pos / units::DEGREES << "°" << std::endl;
 			std::cout << "Lift angle:    " << angler::pos / units::DEGREES << "°" << std::endl;
