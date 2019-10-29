@@ -28,18 +28,15 @@ void lineup_alert(void*) {
 		if (sig.height > 100 && sig.width > 250 && abs(sig.x_middle_coord - 158) <= 50 && abs(sig.top_coord) <= 30 && abs(sig.top_coord + sig.height - 135) <= 15) {
 			
 			// do controller stuff
-			pros::delay(200);
 			controller.controller.set_text(0, 0, "               ");
 			pros::delay(50);
-			controller.controller.set_text(1, 0, "               ");
+			controller.controller.set_text(1, 0, "    IN THE YARD");
 			pros::delay(50);
 			controller.controller.set_text(2, 0, "               ");
-			pros::delay(200);
+			pros::delay(100);
 			controller.controller.rumble("-");
 			std::cout << "entered" << std::endl;
-			pros::delay(200);
-			controller.controller.set_text(1, 0, "    IN THE YARD");
-			pros::delay(200);
+			pros::delay(50);
 
 			// wait until out of range
 			sig = vision.get_by_sig(0, 1);
@@ -50,16 +47,15 @@ void lineup_alert(void*) {
 			}
 
 			// do controller stuff
-			pros::delay(200);
 			controller.controller.set_text(0, 0, "               ");
 			pros::delay(50);
 			controller.controller.set_text(1, 0, "               ");
 			pros::delay(50);
 			controller.controller.set_text(2, 0, "               ");
-			pros::delay(200);
+			pros::delay(100);
 			controller.controller.rumble(".");
 			std::cout << "exited" << std::endl;
-			pros::delay(500);
+			pros::delay(300);
 		}
 	
 		pros::delay(20);
