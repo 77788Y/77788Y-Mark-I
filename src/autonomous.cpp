@@ -5,22 +5,24 @@
 #include "subsystems/intake.hpp"
 #include "autons.hpp"
 
+using namespace subsystems;
+
 void flip_out(){
 
-  while (subsystems::angler::pos > subsystems::angler::POS_RETRACTED - 8 * units::DEGREES){
-    subsystems::angler::move_voltage(12000);
+  while (angler::pos > angler::POS_RETRACTED - 8 * units::DEGREES){
+    angler::move_voltage(12000);
   }
-  while (subsystems::angler::pos < subsystems::angler::POS_RETRACTED){
-    subsystems::angler::move_voltage(-12000);
+  while (angler::pos < angler::POS_RETRACTED){
+    angler::move_voltage(-12000);
   }
-  subsystems::angler::hold();
+  angler::hold();
   pros::delay(100);
-  while (subsystems::lift::pos < subsystems::lift::POS_MIN + 20 * units::DEGREES){
-    subsystems::lift::move_voltage(12000);
+  while (lift::pos < lift::POS_MIN + 20 * units::DEGREES){
+    lift::move_voltage(12000);
   }
-  subsystems::lift::move_voltage(-100);
+  lift::move_voltage(-100);
   pros::delay(350);
-  subsystems::lift::hold();
+  lift::hold();
 }
 
 
@@ -29,7 +31,7 @@ void autonomous() {
   flip_out();
   pros::delay(5);
 
-  // red_fivecube();
+  red_fivecube();
   // blue_fivecube();
   // red_wide_zone();
   // blue_wide_zone();

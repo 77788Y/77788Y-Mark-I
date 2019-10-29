@@ -1,49 +1,51 @@
-// #include "main.h"
-// #include "subsystems/lift.hpp"
-// #include "subsystems/angler.hpp"
-// #include "subsystems/chassis.hpp"
-// #include "subsystems/intake.hpp"
-// #include "autons.hpp"
+#include "main.h"
+#include "subsystems/lift.hpp"
+#include "subsystems/angler.hpp"
+#include "subsystems/chassis.hpp"
+#include "subsystems/intake.hpp"
+#include "autons.hpp"
 
-// void red_fivecube() {
+using namespace subsystems;
 
-//   // tare orientation
-//   subsystems::chassis::tare_orientation(0);
+void red_fivecube() {
 
-//   // start intake and move forward, grabbing cubes
-//   subsystems::intake::move_voltage(12000);
-//   move_dist(35 * units::INCHES, 3000, true, tuning_params_slow);
-//   pros::delay(700);
-//   subsystems::intake::hold();
+  // tare orientation
+  chassis::tare_orientation(0);
 
-//   // back out
-//   move_dist(16 * units::INCHES, 2000, false, tuning_params_default_all_cubes);
+  // start intake and move forward, grabbing cubes
+  intake::move_voltage(12000);
+  chassis::move_by(35 * units::INCHES, 3000, 5000);
+  pros::delay(700);
+  intake::hold();
 
-//   // rotate
-//   rotate(-135 * units::DEGREES, 2000);
+  // back out
+  chassis::move_to(16 * units::INCHES, 2000, 6500, 2500, 6 * units::INCHES, 0, 8 * units::INCHES);
 
-//   // make sure cubes are at the bottom of the intake
-//   subsystems::intake::move_voltage(-3000);
-//   pros::delay(700);
-//   subsystems::intake::hold();
+  // rotate
+  chassis::rotate_to(-135 * units::DEGREES, 2000, 6000);
 
-//   // move to goal
-//   move_dist(10 * units::INCHES, 2000);
+  // make sure cubes are at the bottom of the intake
+  intake::move_voltage(-3000);
+  pros::delay(700);
+  intake::hold();
 
-//   // dump load
-//   subsystems::intake::move_voltage(-1000);
-//   while (subsystems::angler::pos > subsystems::angler::POS_DEPOSIT + 8 * units::DEGREES) {
-//     subsystems::angler::update_auto_deposit(true);
-//     pros::delay(10);
-//   }
-//   subsystems::intake::hold();
+  // move to goal
+  chassis::move_by(10 * units::INCHES, 2000, 6500, 2500, 6 * units::INCHES, 0, 8 * units::INCHES);
 
-//   // make sure load is fully in place
-//   move_dist(6 * units::INCHES, 800, true, tuning_params_slow);
-//   subsystems::angler::move_voltage(-12000);
-//   pros::delay(675);
-//   subsystems::angler::hold();
+  // dump load
+  intake::move_voltage(-1000);
+  while (angler::pos > angler::POS_DEPOSIT + 8 * units::DEGREES) {
+    angler::update_auto_deposit(true);
+    pros::delay(10);
+  }
+  intake::move_voltage(0);
 
-//   // back out
-//   move_dist(-15 * units::INCHES, 1000);
-// }
+  // make sure load is fully in place
+  chassis::move_by(6 * units::INCHES, 800, true, 5000);
+  subsystems::angler::move_voltage(-12000);
+  pros::delay(675);
+  subsystems::angler::hold();
+
+  // back out
+  chassis::move_by(-15 * units::INCHES, 1000);
+}
