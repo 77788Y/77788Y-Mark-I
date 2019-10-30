@@ -14,10 +14,23 @@ void red_fivecube() {
 
   // start intake and move forward, grabbing cubes
   intake::move_voltage(12000);
-  chassis::move_by(35 * units::INCHES, 3000, 5000);
+  chassis::move_by(51 * units::INCHES, 6000, 3000);
   pros::delay(700);
   intake::hold();
 
+  // back up
+  chassis::move_to(36 * units::INCHES, 2000, 3500);
+
+  // turn to cube
+  chassis::rotate_to(25 * units::DEGREES, 2000, 6000);
+
+  //go to intake cube
+  intake::move_voltage(12000);
+  chassis::move_by(8 * units::INCHES, 3000, 2000);
+  pros::delay(700);
+  intake::hold();
+  
+/*
   // back out
   chassis::move_to(16 * units::INCHES, 2000, 6500, 2500, 6 * units::INCHES, 0, 8 * units::INCHES);
 
@@ -48,4 +61,5 @@ void red_fivecube() {
 
   // back out
   chassis::move_by(-15 * units::INCHES, 1000);
+  */
 }

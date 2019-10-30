@@ -90,8 +90,8 @@ namespace subsystems {
       units::Angle angle,
       units::Time timeout = -1,
       int max_voltage = 8000,
-      int start_voltage = 4000, units::Angle accel_angle = 4 * units::INCHES,
-      int end_voltage   = 2000, units::Angle decel_angle = 6 * units::INCHES
+      int start_voltage = 8000, units::Angle accel_angle = 45 * units::DEGREES,
+      int end_voltage   = 0,    units::Angle decel_angle = 45 * units::DEGREES
     ) { rotate_by(angle - orientation, timeout, max_voltage, start_voltage, accel_angle, end_voltage, decel_angle); }
 
     // reset encoders

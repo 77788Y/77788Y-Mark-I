@@ -20,7 +20,7 @@ namespace subsystems {
       int actual_max_voltage = start_voltage < end_voltage ?
         (max_voltage - start_voltage) * scale + start_voltage :
         (max_voltage - end_voltage)   * scale + end_voltage;
-      
+
       // correct signs in case of backwards movement
       int sign = generic::sign(dist);
       int actual_start_voltage = start_voltage * sign;
@@ -99,7 +99,7 @@ namespace subsystems {
       int actual_max_voltage = start_voltage < end_voltage ?
         (max_voltage - start_voltage) * scale + start_voltage :
         (max_voltage - end_voltage)   * scale + end_voltage;
-      
+
       // correct signs in case of backwards movement
       int sign = generic::sign(angle);
       int actual_start_voltage = start_voltage * sign;
@@ -120,18 +120,22 @@ namespace subsystems {
       // follow accel profile
       while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * (actual_accel_angle - (orientation - starting_pos)) > 0) {
 
-        move_voltage(accel_profile.get_at(dist_avg - starting_pos));
+        double speed = accel_profile.get_at(orientation - starting_pos);
+        move_voltage(-speed, speed);
+        if (pros::millis() % 100 < 10) std::cout << speed << std::endl;
         pros::delay(10);
       }
 
       // move at constant speed
-      move_voltage(actual_max_voltage);
+      move_voltage(-actual_max_voltage, actual_max_voltage);
+      std::cout << actual_max_voltage << std::endl;
       while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * ((target_angle - actual_decel_angle) - orientation) > 0) pros::delay(10);
 
       // follow decel profile
       while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * (target_angle - orientation) > 0) {
 
         double speed = decel_profile.get_at(actual_decel_angle - (target_angle - orientation));
+        if (pros::millis() % 100 < 10) std::cout << speed << std::endl;
         move_voltage(-speed, speed);
         pros::delay(10);
       }
