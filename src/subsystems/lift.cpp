@@ -28,9 +28,6 @@ namespace subsystems {
     ////
     // control functions
 
-    double kp = 50000;
-    double td = 10000;
-
     // move voltage (same left/right)
     void move_voltage(int val) {
       if (m_motor.get_brake_mode() != pros::E_MOTOR_BRAKE_COAST) m_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
@@ -38,41 +35,40 @@ namespace subsystems {
     }
 
 
-    // update PD controller
-    units::Angle prev_pos = 0;
-    units::Time prev_time = pros::millis();
-    double prev_pd = 0;
-    double pd_update() {
+    // tell async controller to update its target
+    void goto_async(units::Angle pos) {
 
-      units::Time delta_t = pros::millis() - prev_time;
-
-      // calculate p
-      double error = angle_target - pos;
-      double p = error * kp;
-
-      // calculate d
-      double prev_error = pos - prev_pos;
-      double deriv = (prev_error - error) / delta_t;
-      double d = deriv * kp / td;
-
-      // update prev error and time
-      prev_pos = pos;
-      prev_time = pros::millis();
-
-      // combine
-      double pd = p + d;
-
-      // scale
-      pd = generic::clamp(pd, -12000, 12000) + 5000 * cos(pos);
-      if (fabs((pd - prev_pd) / delta_t ) > 2500) pd = generic::clamp(pd, prev_pd - 2500, prev_pd + 2500);
-      if (pos <= POS_MIN + 8 * units::DEGREES && angle_target <= POS_MIN + 8 * units::DEGREES) pd = 0;
-
-      // move motor and return
-      prev_pd = pd;
-      move_voltage(pd);
-      return pd;
+      angle_target = pos;
+      task->notify_ext(1, NOTIFY_ACTION_OWRITE, NULL);
     }
 
+
+    // goto syncronous
+    bool goto_sync(units::Angle pos, units::Time timeout) {
+
+      goto_async(pos);
+      return wait_for_settle(timeout);
+    }
+
+
+    // wait until controller reaches target
+    bool wait_for_settle(units::Time timeout, units::Angle threshold) {
+
+      // setup interrupt variables
+      units::Time interrupt_time = timeout < 0 ? timeout : pros::millis() + timeout;
+      units::Angle start_target = angle_target;
+
+      // keep checking until interrupted
+      while ((pros::millis() < interrupt_time || interrupt_time < 0) && angle_target == start_target) {
+
+        // if settled, return true
+        if (fabs(angle_target - pos) <= threshold) return true;
+        pros::delay(10);
+      }
+
+      // if interrupted before being settled, return false
+      return false;
+    }
 
 
     // hold position

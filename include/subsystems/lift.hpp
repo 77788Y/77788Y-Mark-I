@@ -2,6 +2,7 @@
 
 #include "main.h"
 #include "lib/units.hpp"
+#include <memory>
 
 namespace subsystems {
   namespace lift {
@@ -13,6 +14,19 @@ namespace subsystems {
     // positions
     const units::Angle POS_MAX = 55 * units::DEGREES;
     const units::Angle POS_MIN = -31 * units::DEGREES;
+    const units::Angle POS_LOW_TOWER = 10 * units::DEGREES;
+    const units::Angle POS_HIGH_TOWER = 50 * units::DEGREES;
+
+
+    ////
+    // task
+
+    // Task object
+    inline std::unique_ptr<pros::Task> task = nullptr;
+
+    // update function
+    void task_update(void*);
+
 
     ////
     // motors, sensors, etc
@@ -37,12 +51,6 @@ namespace subsystems {
     // target positon
     inline units::Angle angle_target = pos;
 
-    // proportional constant
-    extern double kp;
-
-    // time-derivative constant
-    extern double td;
-
 
 
     ////
@@ -51,8 +59,12 @@ namespace subsystems {
     // move voltage
     void move_voltage(int val);
 
-    // update pd controller
-    double pd_update();
+    // goto position
+    void goto_async(units::Angle pos);
+    bool goto_sync(units::Angle pos, units::Time timeout = -1);
+
+    // wait until controller reaches target
+    bool wait_for_settle(units::Time timeout = -1, units::Angle threshold = 5 * units::DEGREES);
 
     // hold position
     void hold();

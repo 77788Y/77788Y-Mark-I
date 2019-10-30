@@ -20,15 +20,12 @@ namespace subsystems {
       lift::sensors_update();
       chassis::update_vars();
 
-      // subsystems
-      lift::pd_update();
-
       pros::delay(10);
     }
   }
 
 
   // reference to controller task
-  inline std::shared_ptr<pros::Task> task;
+  inline std::unique_ptr<pros::Task> task;
 
 }

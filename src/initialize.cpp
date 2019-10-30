@@ -7,9 +7,10 @@
 void initialize() {
 
   // initialize subsystem controllers
-  subsystems::task = std::make_shared<pros::Task>(pros::Task(subsystems::update_controllers, nullptr, "subsystems"));
+  subsystems::task = std::make_unique<pros::Task>(pros::Task(subsystems::update_controllers, nullptr, "subsystems"));
+  subsystems::lift::task = std::make_unique<pros::Task>(pros::Task(subsystems::lift::task_update, nullptr, "lift"));
 
-  // initislize display
+  // initialize display
   display::init();
 }
 

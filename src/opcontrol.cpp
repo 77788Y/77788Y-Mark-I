@@ -72,6 +72,13 @@ void opcontrol() {
 	// start vision task
 	pros::Task vision_task(lineup_alert, nullptr, "lineup alert");
 
+	// clear controller screen
+	controller.controller.set_text(0, 0, "               ");
+	pros::delay(50);
+	controller.controller.set_text(1, 0, "               ");
+	pros::delay(50);
+	controller.controller.set_text(2, 0, "               ");
+
 	while (true) {
 
 		// update controller

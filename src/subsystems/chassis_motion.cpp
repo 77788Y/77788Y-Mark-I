@@ -42,13 +42,25 @@ namespace subsystems {
       // follow accel profile
       while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * (actual_accel_dist - (dist_avg - starting_pos)) > 0) {
 
-        move_voltage(accel_profile.get_at(dist_avg - starting_pos));
+        // calculate raw voltage
+        double speed = accel_profile.get_at(actual_decel_dist - (target_dist - dist_avg));
+
+        // correct angle
+        double correct_voltage = (starting_orientation - orientation) * angle_correct_weight;
+
+        // move motors
+        move_voltage(speed - correct_voltage, speed + correct_voltage);
         pros::delay(10);
       }
 
       // move at constant speed
       move_voltage(actual_max_voltage);
-      while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * ((target_dist - actual_decel_dist) - dist_avg) > 0) pros::delay(10);
+      while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * ((target_dist - actual_decel_dist) - dist_avg) > 0) {
+
+        double correct_voltage = (starting_orientation - orientation) * angle_correct_weight;
+        move_voltage(actual_max_voltage - correct_voltage, actual_max_voltage + correct_voltage);
+        pros::delay(10);
+      }
 
       // follow decel profile
       while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * (target_dist - dist_avg) > 0) {
