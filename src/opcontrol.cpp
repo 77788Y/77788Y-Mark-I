@@ -79,6 +79,10 @@ void opcontrol() {
 	pros::delay(50);
 	controller.controller.set_text(2, 0, "               ");
 
+	// lift control data
+	uint8_t lift_btn_count = 0;
+	units::Time lift_last_press = pros::millis();
+
 	while (true) {
 
 		// update controller
@@ -108,11 +112,22 @@ void opcontrol() {
 		}
 
 		// lift
-		if (controller.btn_l1 - controller.btn_l2) {
-			if (controller.btn_l1) lift::angle_target = lift::POS_MAX;
-			else if (controller.btn_l2) lift::angle_target = lift::POS_MIN;
+		if (controller.btn_l2_new == 1) lift::goto_async(lift::POS_MIN);
+		if (controller.btn_l1_new == 1) {
+			++lift_btn_count;
+			lift_last_press = pros::millis();
 		}
-		else if (controller.btn_l1_new || controller.btn_l2_new) lift::angle_target = lift::pos;
+		if ((pros::millis() - lift_last_press >= 300 && lift_btn_count > 0) || lift_btn_count >= 2) {
+
+			// move lift
+			switch (lift_btn_count) {
+				default: break;
+				case 1: lift::goto_async(lift::POS_LOW_TOWER);
+				case 2: lift::goto_async(lift::POS_HIGH_TOWER);
+			}
+
+			lift_btn_count = 0;
+		}
 
 		if (macros::current != macros::CODE_ANGLER_LIFT) {
 
