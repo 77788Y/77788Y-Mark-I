@@ -14,39 +14,33 @@ void red_fivecube() {
 
   // start intake and move forward, grabbing cubes
   intake::move_voltage(12000);
-  chassis::move_by(51 * units::INCHES, 6000, 3000);
-  pros::delay(700);
+  chassis::move_to(36 * units::INCHES, 6000, 4000);
+  pros::delay(300);
   intake::hold();
 
-  // back up
-  chassis::move_to(36 * units::INCHES, 2000, 3500);
-
   // turn to cube
-  chassis::rotate_to(25 * units::DEGREES, 2000, 6000);
+  chassis::rotate_to(23 * units::DEGREES, 3000, 6000);
 
   //go to intake cube
   intake::move_voltage(12000);
-  chassis::move_by(8 * units::INCHES, 3000, 2000);
+  chassis::move_by(9 * units::INCHES, 3000, 4000);
   pros::delay(700);
   intake::hold();
-  
-/*
+
   // back out
-  chassis::move_to(16 * units::INCHES, 2000, 6500, 2500, 6 * units::INCHES, 0, 8 * units::INCHES);
+  chassis::move_by(-27 * units::INCHES, 5000, 8000, 2500, 12 * units::INCHES, 1500, 4 * units::INCHES);
 
   // rotate
-  chassis::rotate_to(-135 * units::DEGREES, 2000, 6000);
-
-  // make sure cubes are at the bottom of the intake
   intake::move_voltage(-3000);
-  pros::delay(700);
+  pros::delay(300);
   intake::hold();
+  chassis::rotate_to(-147.5 * units::DEGREES, 3000, 6000);
 
   // move to goal
-  chassis::move_by(10 * units::INCHES, 2000, 6500, 2500, 6 * units::INCHES, 0, 8 * units::INCHES);
+  chassis::move_by(10.5 * units::INCHES, 2000, 6500, 2500, 6 * units::INCHES, 0, 8 * units::INCHES);
 
   // dump load
-  intake::move_voltage(-1000);
+  intake::move_voltage(-2000);
   while (angler::pos > angler::POS_DEPOSIT + 8 * units::DEGREES) {
     angler::update_auto_deposit(true);
     pros::delay(10);
@@ -54,12 +48,9 @@ void red_fivecube() {
   intake::move_voltage(0);
 
   // make sure load is fully in place
-  chassis::move_by(6 * units::INCHES, 800, true, 5000);
-  subsystems::angler::move_voltage(-12000);
-  pros::delay(675);
-  subsystems::angler::hold();
+  chassis::move_by(6 * units::INCHES, 800, true, 2500);
 
   // back out
   chassis::move_by(-15 * units::INCHES, 1000);
-  */
+
 }

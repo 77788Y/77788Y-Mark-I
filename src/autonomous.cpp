@@ -30,6 +30,7 @@ void autonomous() {
 
   flip_out();
   pros::delay(5);
+  lift::hold();
 
   red_fivecube();
   // blue_fivecube();

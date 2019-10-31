@@ -1,6 +1,7 @@
 #include "subsystems/chassis.hpp"
 #include "lib/sine_profile.hpp"
 #include "lib/generic.hpp"
+#include <iostream>
 
 namespace subsystems {
   namespace chassis {
@@ -43,7 +44,7 @@ namespace subsystems {
       while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * (actual_accel_dist - (dist_avg - starting_pos)) > 0) {
 
         // calculate raw voltage
-        double speed = accel_profile.get_at(actual_decel_dist - (target_dist - dist_avg));
+        double speed = accel_profile.get_at(dist_avg - starting_pos);
 
         // correct angle
         double correct_voltage = (starting_orientation - orientation) * angle_correct_weight;
@@ -54,7 +55,6 @@ namespace subsystems {
       }
 
       // move at constant speed
-      move_voltage(actual_max_voltage);
       while ((pros::millis() < interrupt_time || interrupt_time < 0) && sign * ((target_dist - actual_decel_dist) - dist_avg) > 0) {
 
         double correct_voltage = (starting_orientation - orientation) * angle_correct_weight;
@@ -67,6 +67,8 @@ namespace subsystems {
 
         // calculate raw voltage
         double speed = decel_profile.get_at(actual_decel_dist - (target_dist - dist_avg));
+
+        std::cout << speed << std::endl;
 
         // correct angle
         double correct_voltage = (starting_orientation - orientation) * angle_correct_weight;
