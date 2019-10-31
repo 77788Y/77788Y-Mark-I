@@ -80,8 +80,8 @@ void opcontrol() {
 	controller.controller.set_text(2, 0, "               ");
 
 	// lift control data
-	uint8_t lift_btn_count = 0;
-	units::Time lift_last_press = pros::millis();
+	int lift_index = 0;
+	units::Angle lift_angles[] = {lift::POS_MIN, lift::POS_LOW_TOWER, lift::POS_HIGH_TOWER};
 
 	while (true) {
 
@@ -91,12 +91,6 @@ void opcontrol() {
 		// dirty hack to disable angler
 		if (macros::current == macros::CODE_ANGLER_LIFT && (controller.btn_r1 || controller.btn_r2 || controller.btn_x || controller.btn_b || controller.btn_a)) {
 			macros::notify(macros::CODE_INTERRUPT);
-			pros::delay(2);
-		}
-
-		// move angler for lift macro
-		if (controller.btn_y_new == 1) {
-			macros::notify(macros::CODE_ANGLER_LIFT);
 			pros::delay(2);
 		}
 
@@ -112,21 +106,16 @@ void opcontrol() {
 		}
 
 		// lift
-		if (controller.btn_l2_new == 1) lift::goto_async(lift::POS_MIN);
 		if (controller.btn_l1_new == 1) {
-			++lift_btn_count;
-			lift_last_press = pros::millis();
+
+			++lift_index;
+			if (lift_index > 2) lift_index = 2;
+			lift::goto_async(lift_angles[lift_index]);
 		}
-		if ((pros::millis() - lift_last_press >= 300 && lift_btn_count > 0) || lift_btn_count >= 2) {
+		else if (controller.btn_l2_new == 1) {
 
-			// move lift
-			switch (lift_btn_count) {
-				default: break;
-				case 1: lift::goto_async(lift::POS_LOW_TOWER);
-				case 2: lift::goto_async(lift::POS_HIGH_TOWER);
-			}
-
-			lift_btn_count = 0;
+			lift_index = 0;
+			lift::goto_async(lift_angles[lift_index]);
 		}
 
 		if (macros::current != macros::CODE_ANGLER_LIFT) {
@@ -139,18 +128,20 @@ void opcontrol() {
 
 			// angler
 			if (controller.btn_a) angler::update_auto_deposit();
-			else if (controller.btn_x - controller.btn_b) angler::move_voltage((controller.btn_x - controller.btn_b) * 12000);
+			else if (controller.btn_b_new == 1) angler::m_motor.move_absolute(0, 100);
 			else angler::hold();
 		}
 
 		// debug
 		if (true && pros::millis() % 250 <= 10) {
 
-			std::cout << "Angler angle:  " << angler::pos / units::DEGREES << "°" << std::endl;
-			std::cout << "Lift angle:    " << angler::pos / units::DEGREES << "°" << std::endl;
-			std::cout << "Chassis Left:  " << chassis::dist_l << "\"" << std::endl;
-			std::cout << "Chassis Right: " << chassis::dist_r << "\"" << std::endl;
-			std::cout << "Chassis Angle: " << chassis::orientation / units::DEGREES << "°" << std::endl << std::endl;
+			// std::cout << "Angler angle:  " << angler::pos / units::DEGREES << "°" << std::endl;
+			// std::cout << "Lift angle:    " << angler::pos / units::DEGREES << "°" << std::endl;
+			// std::cout << "Chassis Left:  " << chassis::dist_l << "\"" << std::endl;
+			// std::cout << "Chassis Right: " << chassis::dist_r << "\"" << std::endl;
+			// std::cout << "Chassis Angle: " << chassis::orientation / units::DEGREES << "°" << std::endl << std::endl;
+
+			// std::cout << "Height " << lift_btn_count << std::endl;
 		}
 
 		pros::delay(10);

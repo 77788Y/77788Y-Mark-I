@@ -12,10 +12,10 @@ namespace subsystems {
     // macros
 
     // positions
-    const units::Angle POS_MAX = 55 * units::DEGREES;
+    const units::Angle POS_MAX = 50 * units::DEGREES;
     const units::Angle POS_MIN = -31 * units::DEGREES;
-    const units::Angle POS_LOW_TOWER = 10 * units::DEGREES;
-    const units::Angle POS_HIGH_TOWER = 50 * units::DEGREES;
+    const units::Angle POS_LOW_TOWER = 20 * units::DEGREES;
+    const units::Angle POS_HIGH_TOWER = 45 * units::DEGREES;
 
 
     ////
