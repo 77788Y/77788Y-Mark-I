@@ -28,7 +28,7 @@ void red_fivecube() {
   intake::hold();
 
   // back out
-  chassis::move_by(-27 * units::INCHES, 5000, 8000, 2500, 12 * units::INCHES, 1500, 4 * units::INCHES);
+  chassis::move_by(-27 * units::INCHES, 5000, 8000, 2500, 4 * units::INCHES, 2000, 12 * units::INCHES);
 
   // rotate
   intake::move_voltage(-3000);
