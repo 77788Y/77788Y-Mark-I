@@ -10,7 +10,7 @@ namespace subsystems {
     // move a distance
 
     // relative motion
-    void move_by(units::Distance dist, units::Time timeout, int max_voltage, int start_voltage, units::Distance decel_dist, int end_voltage, units::Distance accel_dist, double angle_correct_weight) {
+    void move_by(units::Distance dist, units::Time timeout, int max_voltage, int start_voltage, units::Distance accel_dist, int end_voltage, units::Distance decel_dist, double angle_correct_weight) {
 
       // calculate scale
       double scale = accel_dist + decel_dist > fabs(dist) ? fabs(dist / (accel_dist + decel_dist)) : 1;
