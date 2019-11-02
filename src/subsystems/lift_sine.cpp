@@ -11,12 +11,12 @@ namespace subsystems {
     // constants
 
     // accel/decel distance
-    static const units::Angle ACCEL_DIST = 20 * units::DEGREES;
-    static const units::Angle DECEL_DIST = 45 * units::DEGREES;
+    static const units::Angle ACCEL_DIST = 15 * units::DEGREES;
+    static const units::Angle DECEL_DIST = 25 * units::DEGREES;
 
     // start/end voltage
-    static const int START_VOLTAGE = 4000;
-    static const int END_VOLTAGE = 4000;
+    static const int START_VOLTAGE = 4200;
+    static const int END_VOLTAGE = 4200;
 
     // max voltage
     static const int MAX_VOLTAGE = 12000;
@@ -47,7 +47,7 @@ namespace subsystems {
         int actual_max_voltage = START_VOLTAGE < END_VOLTAGE ?
           (MAX_VOLTAGE - START_VOLTAGE) * scale + START_VOLTAGE :
           (MAX_VOLTAGE - END_VOLTAGE)   * scale + END_VOLTAGE;
-        
+
         // correct signs in case of backwards movement
         int sign = generic::sign(dist);
         int actual_start_voltage = START_VOLTAGE * sign;

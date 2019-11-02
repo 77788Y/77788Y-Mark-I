@@ -7,7 +7,7 @@
 
 using namespace subsystems;
 
-void red_fivecube() {
+void skills_auton() {
 
   int start_time = pros::millis();
 
