@@ -9,12 +9,14 @@ using namespace subsystems;
 
 void red_fivecube() {
 
+  int start_time = pros::millis();
+
   // tare orientation
   chassis::tare_orientation(0);
 
   // start intake and move forward, grabbing cubes
   intake::move_voltage(12000);
-  chassis::move_to(36 * units::INCHES, 6000, 4000);
+  chassis::move_to(36 * units::INCHES, 6000, 4000, 3000, 3 * units::INCHES, 2500, 3 * units::INCHES);
   pros::delay(300);
   intake::hold();
 
@@ -32,12 +34,16 @@ void red_fivecube() {
 
   // rotate
   intake::move_voltage(-3000);
-  pros::delay(300);
+  pros::delay(450);
   intake::hold();
-  chassis::rotate_to(-147.5 * units::DEGREES, 3000, 6000);
+  chassis::rotate_to(-145 * units::DEGREES, 3000, 6000);
 
   // move to goal
-  chassis::move_by(10.5 * units::INCHES, 2000, 6500, 2500, 6 * units::INCHES, 0, 8 * units::INCHES);
+  chassis::move_by(6.69 * units::INCHES, 2000, 7000, 2500, 6 * units::INCHES, 1000, 8 * units::INCHES);
+  pros::delay(10);
+  chassis::move_voltage(0, 4000);
+  pros::delay(300);
+  chassis::hold();
 
   // dump load
   intake::move_voltage(-2000);
@@ -48,9 +54,9 @@ void red_fivecube() {
   intake::move_voltage(0);
 
   // make sure load is fully in place
-  chassis::move_by(6 * units::INCHES, 800, true, 2500);
+  chassis::move_by(6 * units::INCHES, 800, true, 4000);
 
   // back out
-  chassis::move_by(-15 * units::INCHES, 1000);
+  chassis::move_by(-15 * units::INCHES, 1000, 12000, 6500);
 
 }
