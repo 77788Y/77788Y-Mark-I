@@ -27,10 +27,10 @@ void red_fivecube() {
   intake::move_voltage(12000);
   chassis::move_by(9 * units::INCHES, 3000, 4000);
   pros::delay(269);
-  intake::hold();
 
   // back out
   chassis::move_by(-26.5 * units::INCHES, 5000, 10000, 3000, 2 * units::INCHES, 1000, 14 * units::INCHES);
+  intake::hold();
 
   // rotate
   pros::delay(100);

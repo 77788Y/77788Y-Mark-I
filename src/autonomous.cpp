@@ -24,8 +24,9 @@ void autonomous() {
 
   flip_out();
 
-  // red_fivecube();
-  blue_fivecube();
+  //red_fivecube();
+  // blue_fivecube();
   // red_wide_zone();
   // blue_wide_zone();
+  skills_auton();
 }

@@ -48,7 +48,7 @@ namespace subsystems {
       m_front_r.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
       m_back_l.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
       m_back_r.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-      
+
       m_front_l.move_velocity(0);
       m_front_r.move_velocity(0);
       m_back_l.move_velocity(0);
