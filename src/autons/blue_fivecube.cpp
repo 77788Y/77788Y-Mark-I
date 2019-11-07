@@ -21,7 +21,7 @@ void blue_fivecube() {
   intake::hold();
 
   // turn to cube
-  chassis::rotate_to(157 * units::DEGREES, 3000, 6000);
+  chassis::rotate_to(157 * units::DEGREES, 1500, 6000);
 
   //go to intake cube
   intake::move_voltage(12000);

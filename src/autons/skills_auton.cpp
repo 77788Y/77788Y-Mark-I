@@ -29,11 +29,11 @@ void skills_auton() {
   pros::delay(269);
 
   // back out
-  chassis::move_by(-26.5 * units::INCHES, 5000, 8000, 3000, 2 * units::INCHES, 1000, 14 * units::INCHES);
+  chassis::move_by(-26.5 * units::INCHES, 5000, 8000, 3000, 2 * units::INCHES, 1500, 8 * units::INCHES);
   intake::hold();
 
   // rotate
-  pros::delay(500);
+  pros::delay(200);
   chassis::rotate_to(-143 * units::DEGREES, 3000, 8000);
   pros::delay(200);
   intake::move_voltage(-4200);
@@ -51,7 +51,8 @@ void skills_auton() {
 
   // dump load
   intake::move_voltage(-1500);
-  while (angler::pos > angler::POS_DEPOSIT + 8 * units::DEGREES) {
+  int t = pros::millis();
+  while (angler::pos > angler::POS_DEPOSIT + 8 * units::DEGREES && pros::millis() - t < 2500) {
     angler::update_auto_deposit(true);
     pros::delay(10);
   }
@@ -101,8 +102,8 @@ void skills_auton() {
   intake::move_voltage(6000);
   chassis::move_by(6 * units::INCHES, 1000, 4000);
   intake::move_voltage(0);
-  chassis::move_voltage(-8000);
-  pros::delay(1500);
+  chassis::move_voltage(-4000);
+  pros::delay(2000);
   chassis::tare_orientation(0 * units::DEGREES);
   chassis::move_by(10 * units::INCHES);
 
