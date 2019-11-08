@@ -18,14 +18,6 @@ void opcontrol() {
   // initialize macros
   macros::init();
 
-
-	// clear controller screen
-	controller.controller.set_text(0, 0, "               ");
-	pros::delay(50);
-	controller.controller.set_text(1, 0, "               ");
-	pros::delay(50);
-	controller.controller.set_text(2, 0, "               ");
-
 	// lift control data
 	int lift_index = 0;
 	units::Angle lift_angles[] = {lift::POS_MIN, lift::POS_LOW_TOWER, lift::POS_HIGH_TOWER};
@@ -80,15 +72,14 @@ void opcontrol() {
 		}
 
 		// debug
+		// if (controller.btn_left) chassis::tare_orientation(90 * units::DEGREES);
 		if (true && pros::millis() % 250 <= 10) {
 
-			// std::cout << "Angler angle:  " << angler::pos / units::DEGREES << "°" << std::endl;
-			// std::cout << "Lift angle:    " << angler::pos / units::DEGREES << "°" << std::endl;
-			// std::cout << "Chassis Left:  " << chassis::dist_l << "\"" << std::endl;
-			// std::cout << "Chassis Right: " << chassis::dist_r << "\"" << std::endl;
-			// std::cout << "Chassis Angle: " << chassis::orientation / units::DEGREES << "°" << std::endl << std::endl;
-
-			// std::cout << "Height " << lift_btn_count << std::endl;
+			std::cout << "Angler angle:  " << angler::pos / units::DEGREES << "°" << std::endl;
+			std::cout << "Lift angle:    " << angler::pos / units::DEGREES << "°" << std::endl;
+			std::cout << "Chassis Left:  " << chassis::dist_l << "\"" << std::endl;
+			std::cout << "Chassis Right: " << chassis::dist_r << "\"" << std::endl;
+			std::cout << "Chassis Angle: " << chassis::orientation / units::DEGREES << "°" << std::endl << std::endl;
 		}
 
 		pros::delay(10);

@@ -20,6 +20,7 @@ namespace subsystems {
     units::Distance dist_ref_l = 0;
     units::Distance dist_ref_r = 0;
     units::Angle orientation_ref = 0;
+    units::Angle orientation_absolute = 0;
 
 
 
@@ -35,7 +36,8 @@ namespace subsystems {
       dist_l = angle_l * WHEEL_RADIUS + dist_ref_l;
       dist_r = angle_r * WHEEL_RADIUS + dist_ref_r;
       dist_avg = (dist_l + dist_r) * .5;
-      orientation = (dist_r - dist_l) / CHASSIS_DIAM + orientation_ref;
+      orientation_absolute = (dist_r - dist_l) / CHASSIS_DIAM;
+      orientation = orientation_absolute + orientation_ref;
     }
 
 
@@ -86,7 +88,7 @@ namespace subsystems {
 
     // reset orietation
     void tare_orientation(units::Angle ref) {
-      orientation_ref = ref - ((orientation - orientation_ref) / CHASSIS_DIAM);
+      orientation_ref = ref - orientation_absolute;
 
       update_vars();
     }
