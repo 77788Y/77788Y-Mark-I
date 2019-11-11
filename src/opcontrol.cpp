@@ -18,6 +18,9 @@ void opcontrol() {
   // initialize macros
   macros::init();
 
+  // line tracker
+  pros::ADIAnalogIn cube_detect('H');
+
 	// lift control data
 	int lift_index = 0;
 	units::Angle lift_angles[] = {lift::POS_MIN, lift::POS_LOW_TOWER, lift::POS_HIGH_TOWER};
@@ -84,14 +87,18 @@ void opcontrol() {
 
 		// debug
 		// if (controller.btn_left) chassis::tare_orientation(90 * units::DEGREES);
-		if (true && pros::millis() % 250 <= 10) {
+		if (false && pros::millis() % 250 <= 10) {
 
 			std::cout << "Angler angle:  " << angler::pos / units::DEGREES << "°" << std::endl;
 			std::cout << "Lift angle:    " << angler::pos / units::DEGREES << "°" << std::endl;
 			std::cout << "Chassis Left:  " << chassis::dist_l << "\"" << std::endl;
 			std::cout << "Chassis Right: " << chassis::dist_r << "\"" << std::endl;
-			std::cout << "Chassis Angle: " << chassis::orientation / units::DEGREES << "°" << std::endl << std::endl;
+			std::cout << "Chassis Angle: " << chassis::orientation / units::DEGREES << "°" << std::endl;
+      std::cout << "Cube int tray: " << (cube_detect.get_value() < 1700) << std::endl << std::endl;
 		}
+
+    if (pros::millis() >= 250 && cube_detect.get_value() < 1700) std::cout << "CUBE" << std::endl;
+    else if (pros::millis() % 250 <= 10) std::cout << std::endl;
 
 		pros::delay(10);
 	}
