@@ -7,7 +7,7 @@ namespace subsystems {
     // motors, sensors, etc
 
     // motor
-    pros::Motor m_left  (4, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
+    pros::Motor m_left  (5, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
     pros::Motor m_right (8, pros::E_MOTOR_GEARSET_18, true,  pros::E_MOTOR_ENCODER_DEGREES);
 
 

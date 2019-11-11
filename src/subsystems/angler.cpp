@@ -29,7 +29,7 @@ namespace subsystems {
 
     // update auto deposit
     void update_auto_deposit(bool speedy) {
-      if (pos < POS_DEPOSIT + 30 * units::DEGREES) move_voltage((pos - POS_DEPOSIT) * (speedy ? 15000.0 : 10000.0));
+      if (pos < POS_DEPOSIT + 33 * units::DEGREES) move_voltage((pos - POS_DEPOSIT) * (speedy ? 15000.0 : 7250.0));
       else move_voltage(12000);
     }
 

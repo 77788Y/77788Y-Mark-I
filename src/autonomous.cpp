@@ -22,11 +22,12 @@ void flip_out(){
 
 void autonomous() {
 
+  chassis::move_voltage(-2000);
   flip_out();
 
   // red_fivecube();
-  // blue_fivecube();
+  blue_fivecube();
   // red_wide_zone();
   // blue_wide_zone();
-  skills_auton();
+  // skills_auton();
 }

@@ -14,7 +14,18 @@ void skills_auton() {
   // tare orientation
   chassis::tare_orientation(0);
 
+
+  // stack----------------------------------------------------------------------
+
   // start intake and move forward, grabbing cubes
+  intake::move_voltage(12000);
+  pros::delay(20);
+  intake::move_voltage(12000);
+  pros::delay(20);
+  intake::move_voltage(12000);
+  pros::delay(20);
+  intake::move_voltage(12000);
+  pros::delay(100);
   intake::move_voltage(12000);
   chassis::move_to(36 * units::INCHES, 6000, 4000, 3000, 3 * units::INCHES, 2500, 3 * units::INCHES);
   pros::delay(600);
@@ -68,6 +79,9 @@ void skills_auton() {
   // back out
   chassis::move_by(-10 * units::INCHES, 1000, 12000, 6500);
 
+
+  // first tower----------------------------------------------------------------
+
   // rotate
   chassis::rotate_to(-260 * units::DEGREES, 4000, 6000);
 
@@ -87,7 +101,7 @@ void skills_auton() {
   chassis::hold();
 
   // get tray in desired position
-  angler::m_motor.move_absolute(320, 100);
+  angler::m_motor.move_absolute(290, 100);
   while (fabs(angler::m_motor.get_position() - 320) >= 3) pros::delay(10);
 
   // intake cube
@@ -104,8 +118,11 @@ void skills_auton() {
   pros::delay(500);
   intake::hold();
 
+
+  // second tower---------------------------------------------------------------
+
   // back out
-  chassis::move_to(40 * units::INCHES);
+  chassis::move_to(41 * units::INCHES);
 
   // rotate to second tower cube & reset lift
   chassis::rotate_by(-90 * units::DEGREES);
@@ -115,6 +132,7 @@ void skills_auton() {
   // intake cube
   intake::move_voltage(6400);
   chassis::move_by(6 * units::INCHES, 1000, 4000);
+  pros::delay(350);
   intake::move_voltage(0);
 
   // realign on the wall
@@ -130,26 +148,42 @@ void skills_auton() {
 
   // lift cube & place in tower
   lift::goto_sync(lift::POS_LOW_TOWER);
-  chassis::move_to(29 * units::INCHES, 1000);
+  chassis::move_to(30 * units::INCHES, 1000);
   intake::move_voltage(-6000);
   pros::delay(500);
   intake::hold();
 
-  // next
-  chassis::move_to(25 * units::INCHES, 1000);
+
+  // third tower----------------------------------------------------------------
+
+  // back out & put lift down
+  chassis::move_to(24 * units::INCHES, 1000);
   lift::goto_sync(lift::POS_MIN);
+
+  // rotate to third tower cube & reset position
   chassis::rotate_by(63.5 * units::DEGREES);
   chassis::tare_position();
+
+  // move to cube
   chassis::move_to(24 * units::INCHES, 4000);
+
+  // intake cube
   intake::move_voltage(6000);
   chassis::move_to(30.5 * units::INCHES, 2000, 4000, 1000);
   intake::hold();
+
+  // go to third tower
   chassis::move_to(22 * units::INCHES, 1000);
   chassis::rotate_by(22 * units::DEGREES, 1000);
+
+  // lift cube & place in tower
   lift::goto_sync(lift::POS_LOW_TOWER);
   chassis::move_by(5 * units::INCHES);
   intake::move_voltage(-6000);
   pros::delay(500);
   intake::hold();
 
+  // back out
+  chassis::move_by(-10 * units::INCHES);
+  chassis::hold();
 }
