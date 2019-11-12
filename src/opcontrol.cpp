@@ -15,9 +15,6 @@ Joystick controller;
 
 void opcontrol() {
 
-  // initialize macros
-  macros::init();
-
   // line tracker
   pros::ADIAnalogIn cube_detect('H');
 

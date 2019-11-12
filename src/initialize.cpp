@@ -7,6 +7,7 @@
 void initialize() {
 
   // initialize subsystem controllers
+  macros::init();
   subsystems::task = std::make_unique<pros::Task>(pros::Task(subsystems::update_controllers, nullptr, "subsystems"));
   subsystems::lift::task = std::make_unique<pros::Task>(pros::Task(subsystems::lift::task_update, nullptr, "lift"));
 

@@ -9,7 +9,8 @@ namespace macros {
   enum Code {
     CODE_NONE = 0,
     CODE_INTERRUPT = 1,
-    CODE_ANGLER_LIFT = 2
+    CODE_ANGLER_LIFT = 2,
+    CODE_INTAKE_TOWER = 3
   };
 
   // current macro
@@ -17,9 +18,10 @@ namespace macros {
 
   // functions
   bool run_angler_lift();
+  bool run_intake_tower();
 
   // task
-  inline std::shared_ptr<pros::Task> task = nullptr;
+  inline std::unique_ptr<pros::Task> task = nullptr;
 
   // update current function
   inline void update(void*) {
@@ -34,6 +36,9 @@ namespace macros {
 
         // move angler and stuff for lift
         case (CODE_ANGLER_LIFT): run_angler_lift(); break;
+
+        // move intake for towers
+        case (CODE_INTAKE_TOWER): run_intake_tower(); break;
 
         default: break;
       }
@@ -51,7 +56,7 @@ namespace macros {
   // initialize task
   inline void init() {
 
-    task = std::make_shared<pros::Task>(update, nullptr, "macros");
+    task = std::make_unique<pros::Task>(update, nullptr, "macros");
   }
 
 }
