@@ -126,7 +126,6 @@ void skills_auton() {
   // intake cube
   macros::notify(macros::CODE_INTAKE_TOWER);
   chassis::move_by(6 * units::INCHES, 1000, 4000);
-  pros::delay(350);
 
   // realign on the wall
   chassis::move_voltage(-5500);
@@ -287,7 +286,6 @@ void skills_auton() {
   // intake cube
   macros::notify(macros::CODE_INTAKE_TOWER);
   chassis::move_by(6 * units::INCHES, 1000, 4000);
-  pros::delay(350);
 
   // realign on the wall
   chassis::move_voltage(-5500);
